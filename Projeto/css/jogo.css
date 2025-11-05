@@ -2,8 +2,18 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #65ea7d;
+  width: 100vw;
+  height: 100vh;
 }
 canvas {
   display: block;
-  background: #88cc88;
+  background: #000;
+  width: 512px;
+  height: 512px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
