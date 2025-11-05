@@ -1,27 +1,30 @@
-const canvas = document.getElementById('gameCanvas');
+const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 
-function resizeCanvas() {
+function resize() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
+window.addEventListener('resize', resize);
+resize();
 
-// === Configurações do jogador ===
+// Personagem
 const player = {
-  x: canvas.width / 2,
-  y: canvas.height / 2,
-  width: 48,   
-  height: 24,  
-  frameX: 0,
-  frameY: 0,
-  speed: 3,
-  moving: false,
-  state: "idle"
+x: canvas.width / 2 - 16,
+y: canvas.height / 2 - 24,
+width: 32,
+height: 32,
+frameX: 0,
+frameY: 0,
+state: "idle",
+speed: 7,
+moving: false
 };
 
-// === Carregar sprites ===
+const keys = {};
+window.addEventListener('keydown', e => keys[e.key] = true);
+window.addEventListener('keyup', e => keys[e.key] = false);
+
 const sprites = {
   idle: new Image(),
   walk: new Image()
@@ -29,86 +32,86 @@ const sprites = {
 sprites.idle.src = "../assets/Idle.png";
 sprites.walk.src = "../assets/Walk.png";
 
-const keys = {};
-window.addEventListener("keydown", e => keys[e.key] = true);
-window.addEventListener("keyup", e => keys[e.key] = false);
+let loaded = 0;
+for (let key in sprites) {
+  sprites[key].onload = () => {
+  loaded++;
+  console.log(key + " carregado");
+if (loaded === Object.keys(sprites).length) {
+  requestAnimationFrame(loop);
+    }
+  };
+}
 
 function movePlayer() {
-  player.moving = false;
-  let moved = false;
-
+let move = false;
   if (keys["ArrowUp"] || keys["w"]) {
-    player.y -= player.speed;
-    player.frameY = 3; // Cima
-    moved = true;
+  player.y -= player.speed;
+  player.frameY = 1;
+  move = true;
   }
   if (keys["ArrowDown"] || keys["s"]) {
     player.y += player.speed;
-    player.frameY = 0; // Baixo
-    moved = true;
-  }
-  if (keys["ArrowLeft"] || keys["a"]) {
-    player.x -= player.speed;
-    player.frameY = 1; // Esquerda
-    moved = true;
-  }
-  if (keys["ArrowRight"] || keys["d"]) {
-    player.x += player.speed;
-    player.frameY = 2; // Direita
-    moved = true;
-  }
-
-  player.state = moved ? "walk" : "idle";
-  player.moving = moved;
-
-  // Limites do ecrã
-  player.x = Math.max(0, Math.min(canvas.width - player.width, player.x));
-  player.y = Math.max(0, Math.min(canvas.height - player.height, player.y));
+    player.frameY = 0;
+    move = true;
 }
+if (keys["ArrowLeft"] || keys["a"]) {
+  player.x -= player.speed;
+  player.frameY = 1;
+  move = true;
+}
+if (keys["ArrowRight"] || keys["d"]) {
+  player.x += player.speed;
+  player.frameY = 2;
+  move = true;
+}
+player.moving = move;
+player.state = move ? "walk" : "idle";
 
+// limites
+if (player.x < 0) player.x = 0;
+if (player.y < 0) player.y = 0;
+if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+if (player.y + player.height > canvas.height) player.y = canvas.height - player.height;
+}
+    
 let frameCount = 0;
-function handleSpriteFrame() {
-  if (!player.moving) {
-    player.frameX = 0;
-    return;
-  }
-  frameCount++;
-  if (frameCount % 8 === 0) {
-    player.frameX = (player.frameX + 1) % 4; // 4 colunas no sprite
+function animateFrame() {
+frameCount++;
+if (frameCount % 10 === 0) {
+  player.frameX = (player.frameX + 1) % 3;
   }
 }
 
 function drawPlayer() {
-  const sprite = sprites[player.state];
-  if (!sprite.complete) return;
+const img = sprites[player.state];
+if (!img.complete) return;
 
-  ctx.drawImage(
-    sprite,
-    player.frameX * player.width,
-    player.frameY * player.height,
-    player.width,
-    player.height,
-    player.x,
-    player.y,
-    player.width * 2,  // desenhar um pouco maior
-    player.height * 2
-  );
+if (this.facing < 0) {
+  ctx.save();
+  ctx.scale(-2, 2);
+  ctx.translate(-canvas.width, 0);
+  ctx.restore();
+  return;
 }
 
-function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  movePlayer();
-  handleSpriteFrame();
-  drawPlayer();
-  requestAnimationFrame(gameLoop);
+ctx.drawImage(
+img,
+player.frameX * player.width,
+player.frameY * player.height,
+player.width,
+player.height,
+player.x,
+player.y,
+player.width * 2,
+player.height * 2
+);
 }
 
-let loaded = 0;
-for (let key in sprites) {
-  sprites[key].onload = () => {
-    loaded++;
-    if (loaded === Object.keys(sprites).length) {
-      gameLoop();
-    }
-  };
+function loop() {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+movePlayer();
+animateFrame();
+drawPlayer();
+requestAnimationFrame(loop);
 }
