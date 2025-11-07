@@ -116,7 +116,7 @@ async function loadTrees() {
             x: col * treeTileSize * mapScale + (treeTileSize * mapScale - 32 * mapScale) / 2,
             y: row * treeTileSize * mapScale + (treeTileSize * mapScale - 32 * mapScale) / 2,
             width: 32 * mapScale,
-            height: 32 * mapScale,
+            height: 48 * mapScale,
             stage: 0, // Estágio inicial (0-3)
             growth: 0, // Progresso de crescimento (0-100)
             growthSpeed: 0.05, // Velocidade base de crescimento
@@ -327,8 +327,8 @@ function drawTrees() {
         0,      // Posição no sprite (move 32px para cada estágio)
         32, 
         48,          // Tamanho da fonte no sprite
-        screenX, 
-        screenY, // Posição na tela
+        screenX + 24, 
+        screenY - 24, // Posição na tela
         tree.width, 
         tree.height // Tamanho renderizado
       );
