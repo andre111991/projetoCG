@@ -108,16 +108,16 @@ async function loadTrees() {
     const treeTileSize = 512 / cols;
 
     for (let row = 0; row < lines.length; row++) {
-      const values = lines[row].trim().split(/\s+/);
-      for (let col = 0; col < values.length; col++) {
-        if (values[col] === "2") {
+      const values = lines[row].trim().split(/\s+/);  // Dividir por espaços em branco
+      for (let col = 0; col < values.length; col++) { // criar ciclo para colunas
+        if (values[col] === "2") {  // Se o valor no mapa de colusao for 2 e uma arvore
           // Criar árvore para cada colisão
           trees.push({
             x: col * treeTileSize * mapScale + (treeTileSize * mapScale - 32 * mapScale) / 2,
             y: row * treeTileSize * mapScale + (treeTileSize * mapScale - 32 * mapScale) / 2,
             width: 32 * mapScale,
             height: 48 * mapScale,
-            stage: 0, // Estágio inicial (0-3)
+            stage: 0, // Stage inicial (0-3)
             growth: 0, // Progresso de crescimento (0-100)
             growthSpeed: 0.05, // Velocidade base de crescimento
             watered: false,
@@ -131,18 +131,18 @@ async function loadTrees() {
   }
 }
 
-function rectsOverlap(a, b) {
+function rectsOverlap(a, b) { // funcao para detetar colisao
   return !(
-    a.x + a.w <= b.x ||
-    a.x >= b.x + b.w ||
-    a.y + a.h <= b.y ||
-    a.y >= b.y + b.h
+    a.x + a.w <= b.x || // a está à esquerda de b
+    a.x >= b.x + b.w || // a está à direita de b
+    a.y + a.h <= b.y || // a está acima de b 
+    a.y >= b.y + b.h  // a está abaixo de b
   );
 }
 
-function checkCollision(x, y) {
-  const hitbox = {
-    x: x,
+function checkCollision(x, y) { // funcao para verificar colisao
+  const hitbox = {  // definir hitbox
+    x: x, 
     y: y,
     w: player.width * 2,
     h: player.height * 2
@@ -420,7 +420,7 @@ function drawInteractionMenu() {
   ctx.strokeRect(menuX + 10, menuY + 5, 100, 40);
 
   // Botão Adubar
-  ctx.fillStyle = '#6b8e23';
+  ctx.fillStyle = '#502d14e6';
   ctx.fillRect(menuX + 130, menuY + 5, 100, 40);
   ctx.strokeRect(menuX + 130, menuY + 5, 100, 40);
 

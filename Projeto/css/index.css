@@ -26,11 +26,11 @@ body {
 }
 
 .menuButton {
-  text-decoration: none;
   color: #fff8e1;
   font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
+  text-decoration: none;
   width: 250px;
   padding: 15px 0;
   background-position: center;

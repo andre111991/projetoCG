@@ -12,16 +12,18 @@ body {
 }
 
 .button {
-  font-family: "Comic Sans MS", sans-serif;  /* trocar a fonte  */
+  position: fixed;
+  top: 1%;
+  left: 1%;
+  font-family: "Comic Sans MS", sans-serif;  /*trocar a fonte  */
   text-decoration: none;
+  background-color: #502d14e6;
+  text-align: center;
   color: #fff8e1;
   font-size: 1.8rem;
   font-weight: bold;
-  width: 250px;
-  padding: 15px 0;
-  background-size: 200px; 
-  background-repeat: repeat;
-  background-position: center;
+  width: 150px;
+  padding: 5px; 
   border: 3px solid #3b1e0a;
   border-radius: 12px;
   box-shadow: 0 6px 0 #2a1407;
@@ -45,6 +47,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  height: 500px;
   padding: 100px 60px;
   background-color: rgba(80, 45, 20, 0.9); 
   border: 5px solid #2a1208;
@@ -57,42 +60,33 @@ canvas{
   transform: translateY(-40px);
 }
 
-
-
-
 /* Container das Progress Bars */
 .progress-container {
   position: fixed;
-  width: 400px;
+  width: 600px;
   left: 50%;
-  top: 50%;
+  top: 70%;
   transform: translate(-50%, -50%);
-  margin-top: 300px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 15px;
+  gap: 20px 80px;
   padding: 20px;
-  background-color: rgba(80, 45, 20, 0.9); 
   border-radius: 20px;
-  border: 5px solid #2a1208;
   z-index: 10;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-  
-  /* display: flex;
-  align-items: center;
-  padding: 100px 60px; */
 }
 
 /* Cada árvore individual */
 .tree-progress {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 8px;
   padding: 12px;
-  background: rgba(30, 30, 30, 0.9);
-  border-radius: 8px;
-  border: 1px solid #2ecc71;
+  background-color: rgba(80, 45, 20, 0.9); 
+  border: 5px solid #2a1208;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 .tree-progress h3 {
@@ -134,12 +128,7 @@ canvas{
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
+  background: linear-gradient(90deg, #27ae60, #2ecc71, #58d68d);
   animation: shimmer 2s infinite;
 }
 
@@ -164,5 +153,7 @@ canvas{
     width: 90%;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    
   }
 }
+
