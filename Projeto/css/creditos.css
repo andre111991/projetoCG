@@ -1,0 +1,80 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-image: url("../assets/background.jpg");
+}
+
+.button {
+    color: #fff8e1;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 10px;
+    border: 3px solid #3b1e0a;
+    background-color: rgba(80, 45, 20, 0.9); 
+    border-radius: 12px;
+    box-shadow: 0 6px 0 #2a1407;
+    transition: all 0.15s ease-in-out;
+    position: fixed;
+    top: 1%;
+    left: 1%;
+}
+  
+.button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 9px 0 #2a1407;
+    filter: brightness(1.1);
+}
+  
+.button:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 0 #2a1407;
+    filter: brightness(0.9);
+}
+
+
+.creditos-conteudo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.credito-bloco {
+    background-color: #6a4c33; 
+    border: 3px solid #3b2a1e; 
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 0 #3b2a1e;
+    width: 80%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.credito-bloco h4 {
+    color: #fff5e0;
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 0px #000000;
+}
+
+.credito-bloco p {
+    color: #f0e6d6;
+    font-size: 1.1em;
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+.explicacao-bloco p {
+    text-align: left;
+    padding: 0 10px;
+}
